@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="./wn-gate.js"></script>
+  <meta name="description" content="WAYNEST（ウェイネスト）は賃貸のお部屋探しをお手伝いする仲介ブランドです。（画像・テキストは仮）" />
+  <!-- SNS シェア用（差し替え） -->
+  <meta property="og:title" content="WAYNEST｜賃貸のお部屋探し" />
+  <meta property="og:description" content="ここにSNSで表示される説明文が入ります。" />
+  <meta property="og:image" content="./ogp.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>WAYNEST｜賃貸のお部屋探し</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400&display=swap" />
+  <link rel="stylesheet" href="./style.css" />
+  <script defer src="./wn-edit.js"></script>
+  <script defer src="./wn-button.js"></script>
+  <script defer src="./script.js"></script>
+  <script type="module" src="./search.js"></script>
+</head>
+
+<body>
+  <!-- ===== Header ===== -->
+  <header class="lp-header" data-header>
+    <a class="lp-header__logo wn-logo" href="#top" aria-label="WAYNEST トップへ">
+      <span class="lp-header__name-en"><span class="lp-header__thin">WAY</span>NEST</span>
+      <span class="lp-header__tagline">賃貸のお部屋探し<br />Rental agency</span>
+    </a>
+    <nav class="lp-gnav" aria-label="メインナビゲーション" data-gnav>
+      <a href="#area">地域情報</a>
+      <a href="#pickup">おすすめ物件</a>
+      <a href="#shop">店舗</a>
+      <a href="#sns">SNS</a>
+    </nav>
+    <div class="lp-header__right">
+      <a class="lp-pill" href="#contact"><span class="lp-pill__icon" aria-hidden="true"></span>CONTACT</a>
+      <button class="lp-drawer" type="button" aria-label="メニューを開く" aria-controls="lp-menu" aria-expanded="false" data-drawer>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== Global menu ===== -->
+  <div class="lp-menu" id="lp-menu" aria-hidden="true" data-menu>
+    <div class="lp-menu__body">
+      <ul class="lp-menu__list">
+        <li><a href="#top">トップ</a></li>
+        <li><a href="#concept">WAYNESTについて</a></li>
+        <li><a href="#area">札幌の地域情報</a></li>
+        <li><a href="#pickup"><i class="lp-new">NEW</i>おすすめ物件</a></li>
+        <li><a href="#flow">お部屋探しの流れ</a></li>
+        <li><a href="#shop">店舗案内</a></li>
+        <li><a href="#sns">SNS</a></li>
+        <li><a href="#contact">LINEで相談</a></li>
+        <li><a href="#news">お知らせ</a></li>
+      </ul>
+      <div class="lp-menu__cta">
+        <a class="lp-menu__button" href="#pickup">おすすめ物件を見る</a>
+        <a class="lp-menu__button" href="./entry.html?type=visit">来店・内見を予約する</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <!-- ===== Hero（動画 or 画像） ===== -->
+    <section class="lp-hero">
+      <div class="lp-hero__frame">
+        <!-- 写真を足すと自動でスライドショーになり、ドットも出る。動画なら <video class="lp-hero__media" ... autoplay muted loop playsinline> -->
+        <div class="lp-hero__slides" data-hero-slides>
+          <img class="lp-hero__media is-active" src="./images/hero.webp" width="2000" height="1125" alt="自然光の入る、ベージュを基調にしたリビングダイニング" fetchpriority="high" />
+        </div>
+
+        <div class="lp-hero__body">
+          <h1 class="lp-hero__title" aria-label="WAYNEST"><span>WAY</span><span>NEST</span></h1>          <div class="lp-hero__cta">
+            <a class="lp-hero__btn lp-hero__btn--light" href="#pickup"><span class="lp-hero__icon" aria-hidden="true"></span>お部屋を探す</a>
+            <a class="lp-hero__btn lp-hero__btn--dark" href="./entry.html?type=visit">来店・内見を予約する</a>
+          </div>
+          <p class="lp-caption lp-caption--hero">写真はイメージです</p>
+        </div>
+
+        <div class="lp-hero__dots" data-hero-dots hidden></div>
+
+        <!-- 右パネル：おすすめ物件のサムネイル（今はヒーロー写真の切り抜きで仮置き） -->
+        <aside class="lp-hero__panel" aria-label="おすすめ物件">
+          <ul class="lp-hero__thumbs">
+            <li><a href="#pickup"><span class="lp-hero__thumb" style="background-position: 18% 72%;"></span><span class="lp-hero__thumb-label">1LDK｜○○駅 徒歩○分</span></a></li>
+            <li><a href="#pickup"><span class="lp-hero__thumb" style="background-position: 50% 38%;"></span><span class="lp-hero__thumb-label">1K｜△△駅 徒歩○分</span></a></li>
+            <li><a href="#pickup"><span class="lp-hero__thumb" style="background-position: 78% 64%;"></span><span class="lp-hero__thumb-label">2LDK｜□□駅 徒歩○分</span></a></li>
+          </ul>
+          <p class="lp-hero__panel-text">ほかのお部屋も見てみる。<br />あなたに合う一部屋を探しましょう。</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== News ===== -->
+    <section class="lp-section" id="news">
+      <h2 class="lp-headline">
+        <span class="lp-headline__en">NEWS</span>
+        <span class="lp-headline__jp">お知らせ</span>
+      </h2>
+      <div class="lp-news">
+        <div class="lp-news__item">
+          <time class="lp-news__date" datetime="2026-11-05">更新日：2026.11.05</time>
+          <p class="lp-news__title">WAYNEST（運営：株式会社アクト）のSNSアカウントおよびWEBサイトを開設致しました。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Concept ===== -->
+    <section class="lp-section lp-section--paper" id="concept">
+      <h2 class="lp-headline">
+        <span class="lp-headline__en">CONCEPT</span>
+        <span class="lp-headline__jp">WAYNESTについて</span>
+        <span class="lp-headline__copy">地域に寄り添う不動産仲介</span>
+      </h2>
+    </section>
+
+    <!-- コンセプトの画像（16:9）：一定時間ごとに次の画像へ切り替える。1.2秒かけてフェードで入れ替える（script.js） -->
+    <figure class="lp-photo" data-photo-slides>
+      <div class="lp-photo__inner">
+        <img class="lp-photo__image is-active" src="./images/concept-logo.png" width="1920" height="1080" alt="WAYNEST　賃貸のお部屋探し　Rental agency" loading="lazy" />
+        <img class="lp-photo__image" src="./images/concept-map.webp" width="2000" height="1131" alt="夜の街を上から見た地図。駅から線路と道が光り、その近くに目印の光る点がある" />
+      </div>
+      <div class="lp-photo__dots" data-photo-dots></div>
+    </figure>
+
+    <section class="lp-section lp-section--paper lp-section--pt0">
+      <article class="lp-article">
+        <p class="lp-article__title">地域企業への独自の取材や撮影</p>
+        <p class="lp-article__copy">
+          新居入居前に、近隣の病院をはじめ飲食店等の生活インフラに対し独自の取材をさせて頂く事で、より安心して新居へ転居することができる事に力を入れております。
+        </p>
+      </article>
+    </section>
+
+    <!-- ===== AREA（札幌の地域情報。区ごとの施設は area.html へ） ===== -->
+    <section class="lp-section" id="area">
+      <h2 class="lp-headline">
+        <span class="lp-headline__en">AREA</span>
+        <span class="lp-headline__jp">札幌の地域情報</span>
+        <span class="lp-headline__copy">新居のまわりの病院やお店を、区ごとにご紹介。</span>
+        <span class="lp-headline__subcopy">WAYNEST が独自に取材した、暮らしに欠かせない施設の情報です。</span>
+      </h2>
+
+      <ul class="lp-areagrid">
+        <li><a href="./area.html#chuo"><span class="lp-areagrid__en">CHUO</span><span class="lp-areagrid__jp">中央区</span></a></li>
+        <li><a href="./area.html#kita"><span class="lp-areagrid__en">KITA</span><span class="lp-areagrid__jp">北区</span></a></li>
+        <li><a href="./area.html#higashi"><span class="lp-areagrid__en">HIGASHI</span><span class="lp-areagrid__jp">東区</span></a></li>
+        <li><a href="./area.html#shiroishi"><span class="lp-areagrid__en">SHIROISHI</span><span class="lp-areagrid__jp">白石区</span></a></li>
+        <li><a href="./area.html#atsubetsu"><span class="lp-areagrid__en">ATSUBETSU</span><span class="lp-areagrid__jp">厚別区</span></a></li>
+        <li><a href="./area.html#toyohira"><span class="lp-areagrid__en">TOYOHIRA</span><span class="lp-areagrid__jp">豊平区</span></a></li>
+        <li><a href="./area.html#kiyota"><span class="lp-areagrid__en">KIYOTA</span><span class="lp-areagrid__jp">清田区</span></a></li>
+        <li><a href="./area.html#minami"><span class="lp-areagrid__en">MINAMI</span><span class="lp-areagrid__jp">南区</span><span class="lp-areagrid__shop">店舗あり</span></a></li>
+        <li><a href="./area.html#nishi"><span class="lp-areagrid__en">NISHI</span><span class="lp-areagrid__jp">西区</span></a></li>
+        <li><a href="./area.html#teine"><span class="lp-areagrid__en">TEINE</span><span class="lp-areagrid__jp">手稲区</span></a></li>
+      </ul>
+
+      <a class="wn-btn wn-btn--center" href="./area.html"><span class="wn-btn__label">VIEW ALL AREA</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </section>
+
+    <!-- ===== Search（物件検索。選択肢と件数は search.js が rooms.js から入れる。送信先は search.html）
+         2026-10-30 一旦非表示。再開するときは hidden を外し、ナビ・メニュー・「物件を探す」・ALL ROOMS に #search ／ search.html への導線を戻す ===== -->
+    <section class="lp-section lp-section--paper" id="search" hidden>
+      <h2 class="lp-headline">
+        <span class="lp-headline__en">FIND YOUR ROOM</span>
+        <span class="lp-headline__jp">お部屋を探す</span>
+        <span class="lp-headline__subcopy">掲載物件数 ○,○○○件（2026年10月現在）</span>
+      </h2>
+
+      <form class="lp-finder" action="./search.html" method="get" role="search" aria-label="物件検索" data-finder>
+        <!-- キーワード欄：うしろにぼかした光（__glow）を敷いた板の上に、入力と検索ボタン -->
+        <div class="lp-finder__keyword">
+          <span class="lp-finder__glow" aria-hidden="true"></span>
+          <input type="search" name="q" placeholder="駅名・エリア・物件名など" aria-label="キーワード" enterkeyhint="search" />
+          <button class="lp-finder__go" type="submit" aria-label="この条件で検索する"><svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M4 9a5 5 0 1110 0A5 5 0 014 9zm5-7a7 7 0 104.2 12.6.999.999 0 00.093.107l3 3a1 1 0 001.414-1.414l-3-3a.999.999 0 00-.107-.093A7 7 0 009 2z"/></svg></button>
+        </div>
+        <div class="lp-finder__grid">
+          <label class="lp-finder__field"><span>エリア</span><select name="ward" data-fill="ward"><option value="">指定なし</option></select></label>
+          <label class="lp-finder__field"><span>路線</span><select name="line" data-fill="line"><option value="">指定なし</option></select></label>
+          <label class="lp-finder__field"><span>賃料</span><select name="rent" data-fill="rent"><option value="">上限なし</option></select></label>
+          <label class="lp-finder__field"><span>駅徒歩</span><select name="walk" data-fill="walk"><option value="">指定なし</option></select></label>
+        </div>
+        <fieldset class="lp-finder__group">
+          <legend>間取り</legend>
+          <div class="lp-finder__chips" data-fill="layout"></div>
+        </fieldset>
+        <fieldset class="lp-finder__group">
+          <legend>こだわり条件</legend>
+          <div class="lp-finder__chips" data-fill="feature"></div>
+        </fieldset>
+        <div class="lp-finder__actions">
+          <button class="lp-finder__reset" type="reset">条件をクリア</button>
+          <button class="wn-btn wn-btn--jp" type="submit"><span class="wn-btn__label">この条件で探す（<b data-finder-count>-</b>件）</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ===== Pick up（おすすめ物件スライダー） ===== -->
+    <section class="lp-section lp-section--paper" id="pickup">
+      <h2 class="lp-headline">
+        <span class="lp-headline__en">PICK UP</span>
+        <span class="lp-headline__jp">おすすめ物件</span>
+        <span class="lp-headline__copy">スタッフが選んだ、いまおすすめのお部屋。<br />ここに補足のコピーが入ります。</span>
+      </h2>
+
+      <div class="lp-slider" data-slider>
+        <div class="lp-slider__track" data-slider-track>
+          <!-- 2026-10-31 テスト用：物件情報は rooms.js のサンプル（r01・r02・r05・r07・r11）、写真は Unsplash の無料写真（images/rooms/）。本番の物件に差し替える -->
+          <div class="lp-card">
+            <img class="lp-card__image" src="./images/rooms/sample-a.webp" width="800" height="1000" alt="夕焼けの空の下に建つ高層マンション" loading="lazy" />
+            <p class="lp-card__area">中央区｜南北線「中島公園」駅 徒歩4分</p>
+            <p class="lp-card__title">サンプル物件 A</p>
+            <p class="lp-card__text">1LDK ／ 38.50 m² ／ 築3年</p>
+            <p class="lp-card__rent">賃料 78,000円 <small>管理費 6,000円 ／ 敷金1・礼金なし</small></p>
+            <ul class="lp-card__tags"><li>バストイレ別</li><li>オートロック</li></ul>
+            <span class="lp-card__status">新着</span>
+            <div class="lp-card__actions"><a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=detail&amp;id=r01"><span class="wn-btn__label">詳細を問い合わせる</span></a><a class="wn-btn wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=visit&amp;id=r01"><span class="wn-btn__label">内見を予約</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+          </div>
+          <div class="lp-card">
+            <img class="lp-card__image" src="./images/rooms/sample-b.webp" width="800" height="1000" alt="雪の積もった道沿いに建つ低層のマンション" loading="lazy" />
+            <p class="lp-card__area">南区｜南北線「真駒内」駅 徒歩7分</p>
+            <p class="lp-card__title">サンプル物件 B</p>
+            <p class="lp-card__text">2LDK ／ 55.20 m² ／ 築12年</p>
+            <p class="lp-card__rent">賃料 68,000円 <small>管理費 4,000円 ／ 敷金1・礼金なし</small></p>
+            <ul class="lp-card__tags"><li>ペット可</li><li>駐車場あり</li></ul>
+            <span class="lp-card__status">新着</span>
+            <div class="lp-card__actions"><a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=detail&amp;id=r02"><span class="wn-btn__label">詳細を問い合わせる</span></a><a class="wn-btn wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=visit&amp;id=r02"><span class="wn-btn__label">内見を予約</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+          </div>
+          <div class="lp-card">
+            <img class="lp-card__image" src="./images/rooms/sample-e.webp" width="800" height="1000" alt="青空を背に、各階にバルコニーが並ぶマンション" loading="lazy" />
+            <p class="lp-card__area">中央区｜東西線「円山公園」駅 徒歩6分</p>
+            <p class="lp-card__title">サンプル物件 E</p>
+            <p class="lp-card__text">1LDK ／ 42.80 m² ／ 新築</p>
+            <p class="lp-card__rent">賃料 98,000円 <small>管理費 8,000円 ／ 敷金1・礼金1</small></p>
+            <ul class="lp-card__tags"><li>新築</li><li>デザイナーズ</li></ul>
+            <span class="lp-card__status">新着</span>
+            <div class="lp-card__actions"><a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=detail&amp;id=r05"><span class="wn-btn__label">詳細を問い合わせる</span></a><a class="wn-btn wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=visit&amp;id=r05"><span class="wn-btn__label">内見を予約</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+          </div>
+          <div class="lp-card">
+            <img class="lp-card__image" src="./images/rooms/sample-g.webp" width="800" height="1000" alt="夕暮れの街に並ぶ2棟のマンション" loading="lazy" />
+            <p class="lp-card__area">西区｜東西線「琴似」駅 徒歩4分</p>
+            <p class="lp-card__title">サンプル物件 G</p>
+            <p class="lp-card__text">1DK ／ 30.10 m² ／ 築10年</p>
+            <p class="lp-card__rent">賃料 52,000円 <small>管理費 3,000円 ／ 敷金なし・礼金なし</small></p>
+            <ul class="lp-card__tags"><li>バストイレ別</li><li>オートロック</li></ul>
+            <span class="lp-card__status is-soon">内見可</span>
+            <div class="lp-card__actions"><a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=detail&amp;id=r07"><span class="wn-btn__label">詳細を問い合わせる</span></a><a class="wn-btn wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=visit&amp;id=r07"><span class="wn-btn__label">内見を予約</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
+          </div>
+          <div class="lp-card">
+            <img class="lp-card__image" src="./images/rooms/sample-k.webp" width="800" height="1000" alt="青空の下の、白い外壁に赤いバルコニーのマンション" loading="lazy" />
+            <p class="lp-card__area">中央区｜東豊線「豊水すすきの」駅 徒歩3分</p>
+            <p class="lp-card__title">サンプル物件 K</p>
+            <p class="lp-card__text">1R ／ 22.70 m² ／ 築2年</p>
+            <p class="lp-card__rent">賃料 58,000円 <small>管理費 5,000円 ／ 敷金なし・礼金なし</small></p>
+            <ul class="lp-card__tags"><li>家具家電付き</li><li>デザイナーズ</li></ul>
+            <span class="lp-card__status is-full">申込あり</span>
+            <div class="lp-card__actions"><a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp wn-btn--block" href="./entry.html?type=detail&amp;id=r11"><span class="wn-btn__label">空き予定を問い合わせる</span></a></div>
+          </div>
+        </div>
+        <div class="lp-slider__dots" data-slider-dots></div>
+      </div>
+
+      <div class="lp-legend">
+        <p>※現在掲載している物件・写真はテスト用のサンプルです（写真：Unsplash）。</p>
+        <p>※掲載物件は2026年10月現在の情報です。</p>
+        <p>※成約済みの場合はご容赦ください。最新の空室状況はお問い合わせください。</p>
+      </div>
+
+      <!-- ALL ROOMS（物件検索ページへ）：検索を再開するまで非表示
+      <a class="wn-btn wn-btn--center" href="./search.html"><span class="wn-btn__label">ALL ROOMS</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a> -->
+    </section>
+
+    <a class="lp-cover lp-cover--bright" id="flow" href="./flow.html">
+      <img class="lp-cover__bg" src="./images/flow.webp" width="2000" height="1116" alt="" loading="lazy" />
+      <p class="lp-caption">写真はイメージです</p>
+      <div class="lp-cover__inner">
+        <h2 class="lp-headline lp-headline--light">
+          <span class="lp-headline__en">FLOW</span>
+          <span class="lp-headline__jp">お部屋探しの流れ</span>
+          <span class="lp-headline__copy">ご相談から入居まで、ていねいにサポート。</span>
+          <span class="lp-headline__subcopy">SNSで探す → ご相談 → 内見 → お申込み → ご契約</span>
+        </h2>
+        <span class="wn-btn wn-btn--glass"><span class="wn-btn__label">READ MORE</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      </div>
+    </a>
+
+    <!-- 住所・営業時間はフッターの運営会社情報と同じ。変えるときは両方そろえる -->
+    <a class="lp-cover lp-cover--bright" id="shop" href="https://maps.app.goo.gl/Xna31C6DSVPTMoMP7" target="_blank" rel="noopener noreferrer">
+      <img class="lp-cover__bg" src="./images/shop.webp" width="1920" height="1440" alt="" loading="lazy" />
+      <p class="lp-caption">店内の様子</p>
+      <div class="lp-cover__inner">
+        <h2 class="lp-headline lp-headline--light">
+          <span class="lp-headline__en">SHOP</span>
+          <span class="lp-headline__jp">店舗案内</span>
+          <span class="lp-headline__label">WAYNEST の運営会社</span>
+          <span class="lp-headline__copy">株式会社アクト（不動産の住まいる）</span>
+          <span class="lp-headline__subcopy">〒005-0808<br />北海道札幌市南区川沿8条2丁目2-7<br />リバーヒルズ川沿1F<br />営業時間 10:00〜18:00</span>
+        </h2>
+        <span class="wn-btn wn-btn--glass"><span class="wn-btn__label">GOOGLE MAP</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      </div>
+    </a>
+
+    <!-- ===== SNS（各アカウントの紹介。くわしくは sns.html へ） ===== -->
+    <section class="lp-section lp-section--paper" id="sns">
+      <h2 class="lp-headline">
+        <span class="lp-headline__en">SNS</span>
+        <span class="lp-headline__jp">公式SNS</span>
+        <span class="lp-headline__copy">ルームツアーや街の情報を、毎日発信しています。</span>
+      </h2>
+
+      <ul class="lp-snsgrid">
+        <li>
+          <a class="lp-snsgrid__item" href="./sns.html#instagram">
+            <span class="lp-snsgrid__image ph ph--warm" data-label="POST"></span>
+            <span class="lp-snsgrid__name">Instagram</span>
+            <span class="lp-snsgrid__text">お部屋の写真とルームツアー</span>
+          </a>
+        </li>
+        <li>
+          <a class="lp-snsgrid__item" href="./sns.html#tiktok">
+            <span class="lp-snsgrid__image ph ph--city" data-label="MOVIE"></span>
+            <span class="lp-snsgrid__name">TikTok</span>
+            <span class="lp-snsgrid__text">30秒でわかる物件紹介</span>
+          </a>
+        </li>
+      </ul>
+
+      <a class="wn-btn wn-btn--center" href="./sns.html"><span class="wn-btn__label">VIEW ALL SNS</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+    </section>
+
+    <!-- ===== LINE ===== -->
+    <section class="lp-section" id="contact">
+      <div class="lp-limited">
+        <p class="lp-limited__title">LINEでかんたんお部屋探し</p>
+        <p class="lp-limited__copy">希望のエリア・家賃・間取りを送るだけで、<br />スタッフが条件に合うお部屋をご提案します。</p>
+        <!-- オンライン内見は転勤などで来店できない方だけ。目立たせず、ここで小さく案内する -->
+        <p class="lp-limited__note">※転勤などで来店が難しい方は、オンライン内見（ビデオ通話）もご相談ください。</p>
+        <a class="wn-btn wn-btn--line wn-btn--jp wn-btn--center" href="#"><span class="wn-btn__label">LINEで相談する</span><span class="wn-btn__icon wn-btn__icon--external" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 16 16 8M9.5 8H16v6.5"/></svg></span></a>
+        <a class="lp-sublink" href="#">フォームでのお問い合わせはこちら</a>
+        <ul class="lp-sns">
+          <li><a href="./sns.html#instagram">Instagram</a></li>
+          <li><a href="./sns.html#tiktok">TikTok</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="lp-footer" id="footer">
+    <div class="lp-footer__body">
+      <div class="lp-footer__contact">
+        <p class="lp-footer__copy">お部屋探しのご相談・来店予約</p>
+        <div class="lp-footer__tel">
+          <a class="lp-footer__num" href="tel:0115905080">011-590-5080</a>
+          <p class="lp-footer__info">営業時間：10:00〜18:00<br />定休日：GW・夏期・年末年始</p>
+        </div>
+      </div>
+
+      <a class="lp-footer__logo" href="#top">
+        <span class="lp-footer__note">賃貸仲介</span>
+        <span class="lp-footer__mark">WAYNEST</span>
+        <span class="lp-footer__operator">運営：株式会社アクト</span>
+      </a>
+
+      <!-- 運営会社の情報（出典：chintai-smile.com/company/・act-smile.net／2026年10月確認。免許番号は 2026-10-28 にご本人確認） -->
+      <dl class="lp-footer__company">
+        <div><dt>運営会社</dt><dd>株式会社アクト（不動産の住まいる）</dd></div>
+        <div><dt>所在地</dt><dd>〒005-0808 北海道札幌市南区川沿8条2丁目2-7 リバーヒルズ川沿1F</dd></div>
+        <div><dt>TEL ／ FAX</dt><dd><a href="tel:0115905080">011-590-5080</a> ／ 011-590-5081</dd></div>
+        <div><dt>営業時間</dt><dd>10:00〜18:00（定休日：GW・夏期・年末年始）</dd></div>
+        <div><dt>宅地建物取引業免許</dt><dd>北海道知事免許 石狩（2）第8974号</dd></div>
+      </dl>
+
+      <p class="lp-footer__notes">
+        ●掲載の写真・イラストはイメージです。●表示の徒歩分数は80mを1分として算出しています。●掲載物件の賃料・条件・空室状況は2026年10月現在のもので、予告なく変更・成約となる場合があります。●仲介手数料は賃料の○ヶ月分（税別）を上限とします。
+      </p>
+
+      <a class="lp-footer__button" href="https://act-smile.net/?utm_source=GBP&amp;utm_medium=GBP&amp;utm_term=GBP&amp;utm_content=GBP&amp;utm_campaign=GBP" target="_blank" rel="noopener"><span>運営会社サイト</span></a>
+
+      <nav class="lp-footer__nav" aria-label="フッターナビゲーション">
+        <ul>
+          <li><a href="#">サイトポリシー</a></li>
+          <li><a href="#">プライバシー・ポリシー</a></li>
+          <li><a href="#">個人情報の取り扱いについて</a></li>
+          <li><a href="#">会社概要</a></li>
+        </ul>
+      </nav>
+      <p class="lp-footer__copyright">© 2026 WAYNEST ／ 株式会社アクト. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <!-- ===== 固定 CTA（PC: 右下 / SP: 画面下） ===== -->
+  <nav class="lp-aside" aria-label="クイックリンク" data-aside>
+    <a class="lp-aside__link" href="./entry.html?type=visit">内見予約</a>
+    <a class="lp-aside__link lp-aside__link--line" href="#contact">LINE相談</a>
+    <button class="lp-aside__link" type="button" data-modal-open>物件を探す</button>
+  </nav>
+
+  <!-- ===== 物件を探すモーダル ===== -->
+  <div class="lp-modal" aria-hidden="true" data-modal>
+    <div class="lp-modal__panel" role="dialog" aria-modal="true" aria-labelledby="lp-modal-title">
+      <button class="lp-modal__close" type="button" aria-label="閉じる" data-modal-close></button>
+      <p class="lp-modal__title" id="lp-modal-title">物件を探す</p>
+      <p class="lp-modal__date">掲載物件数 ○,○○○件</p>
+      <ul class="lp-modal__list">
+        <li><a href="#pickup"><span>おすすめ物件 <i class="lp-new">NEW</i></span><b>新着 ○件</b></a></li>
+      </ul>
+      <a class="lp-modal__more" href="#contact">条件を伝えてLINEで探してもらう</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="./wn-gate.js"></script>
+  <meta name="description" content="WAYNEST の賃貸物件をエリア・路線・賃料・間取り・こだわり条件で検索できます。（掲載はサンプル）" />
+  <title>WAYNEST｜物件検索</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./sub.css" />
+  <script defer src="./wn-edit.js" data-page="search"></script>
+  <script defer src="./wn-button.js"></script>
+  <script type="module" src="./search.js"></script>
+</head>
+
+<body class="sb-body">
+  <header class="sb-header">
+    <a class="wn-logo" href="./index.html" aria-label="WAYNEST トップへ">
+      <span class="lp-header__name-en"><span class="lp-header__thin">WAY</span>NEST</span>
+    </a>
+    <nav class="sb-header__nav" aria-label="メインナビゲーション">
+      <a href="./search.html" aria-current="page">物件検索</a>
+      <a href="./sns.html">SNS</a>
+      <a href="./index.html#contact">LINE相談</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="sb-title">
+      <p class="sb-title__en">SEARCH</p>
+      <h1 class="sb-title__jp">物件検索</h1>
+      <ol class="sb-crumbs" aria-label="現在地">
+        <li><a href="./index.html">トップ</a></li>
+        <li>物件検索</li>
+      </ol>
+    </div>
+
+    <!-- 条件を変えるたびに一覧が入れ替わる（search.js）。URL にも条件が残るので、そのまま共有できる -->
+    <form class="sb-search" action="./search.html" method="get" role="search" aria-label="物件検索" data-finder>
+      <div class="lp-finder lp-finder--side">
+        <!-- キーワード欄：うしろにぼかした光（__glow）を敷いた板の上に、入力と検索ボタン -->
+        <div class="lp-finder__keyword">
+          <span class="lp-finder__glow" aria-hidden="true"></span>
+          <input type="search" name="q" placeholder="駅名・エリア・物件名など" aria-label="キーワード" enterkeyhint="search" />
+          <button class="lp-finder__go" type="submit" aria-label="この条件で検索する"><svg viewBox="0 0 20 20" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M4 9a5 5 0 1110 0A5 5 0 014 9zm5-7a7 7 0 104.2 12.6.999.999 0 00.093.107l3 3a1 1 0 001.414-1.414l-3-3a.999.999 0 00-.107-.093A7 7 0 009 2z"/></svg></button>
+        </div>
+        <div class="lp-finder__grid">
+          <label class="lp-finder__field"><span>エリア</span><select name="ward" data-fill="ward"><option value="">指定なし</option></select></label>
+          <label class="lp-finder__field"><span>路線</span><select name="line" data-fill="line"><option value="">指定なし</option></select></label>
+          <label class="lp-finder__field"><span>賃料</span><select name="rent" data-fill="rent"><option value="">上限なし</option></select></label>
+          <label class="lp-finder__field"><span>駅徒歩</span><select name="walk" data-fill="walk"><option value="">指定なし</option></select></label>
+        </div>
+        <fieldset class="lp-finder__group">
+          <legend>間取り</legend>
+          <div class="lp-finder__chips" data-fill="layout"></div>
+        </fieldset>
+        <fieldset class="lp-finder__group">
+          <legend>こだわり条件</legend>
+          <div class="lp-finder__chips" data-fill="feature"></div>
+        </fieldset>
+        <div class="lp-finder__actions">
+          <button class="lp-finder__reset" type="reset">条件をクリア</button>
+          <button class="wn-btn wn-btn--jp" type="submit"><span class="wn-btn__label">この条件で探す（<b data-finder-count>-</b>件）</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+        </div>
+      </div>
+
+      <section class="sb-search__main" aria-label="検索結果" data-results-area>
+        <div class="sb-search__bar">
+          <p class="sb-search__count" aria-live="polite"><b data-finder-count>-</b>件</p>
+          <label class="sb-sort">並び替え
+            <select name="sort">
+              <option value="">おすすめ順</option>
+              <option value="rent">賃料が安い順</option>
+              <option value="new">築年数が新しい順</option>
+              <option value="walk">駅から近い順</option>
+            </select>
+          </label>
+        </div>
+
+        <ul class="sb-grid" data-results></ul>
+
+        <div class="sb-empty" data-results-empty hidden>
+          <p>条件に合うお部屋が見つかりませんでした。<br />条件をゆるめるか、LINE でご希望をお送りください。<br />掲載前のお部屋もご紹介できます。</p>
+          <a class="wn-btn wn-btn--line wn-btn--jp" href="./index.html#contact"><span class="wn-btn__label">LINEで探してもらう</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+
+        <p class="sb-note">※掲載物件はサンプルです。賃料・条件・空室状況は2026年10月現在のもので、予告なく変更・成約となる場合があります。</p>
+      </section>
+    </form>
+  </main>
+
+  <footer class="sb-footer">
+    <p class="sb-footer__mark">WAYNEST</p>
+    <p class="sb-footer__text">賃貸仲介 WAYNEST（運営：株式会社アクト）<br />北海道知事免許 石狩（2）第8974号</p>
+    <p class="sb-footer__copy">© 2026 WAYNEST ／ 株式会社アクト. ALL RIGHTS RESERVED.</p>
+  </footer>
+</body>
+</html>

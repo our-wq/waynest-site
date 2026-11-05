@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="./wn-gate.js"></script>
+  <meta name="description" content="SNSでお部屋を探してから、ご相談・内見・お申込み・ご契約まで。WAYNEST のお部屋探しの流れをご紹介します。" />
+  <title>WAYNEST｜お部屋探しの流れ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./sub.css" />
+  <script defer src="./wn-edit.js" data-page="flow"></script>
+  <script defer src="./wn-button.js"></script>
+</head>
+
+<body class="sb-body">
+  <!-- ピクトグラム（80×80 の線画）。線は文字色、塗りは --pg-accent／--pg-base（sub.css）で色を変えられる -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <!-- 01 SNS：スマホの画面にお部屋、吹き出しにハート -->
+      <symbol id="pg-sns" viewBox="0 0 80 80">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="22" y="10" width="30" height="56" rx="6" style="fill:var(--pg-base)" />
+          <path d="M33 16h8" />
+          <path d="M29 44l8-7 8 7v10H29z" style="fill:var(--pg-accent)" />
+          <path d="M35 54v-5h4v5" />
+          <circle cx="37" cy="61" r="1.4" />
+          <circle cx="58" cy="22" r="11" style="fill:var(--pg-base)" />
+          <path d="M58 27.5l-5-4.9a3 3 0 0 1 5-3.4 3 3 0 0 1 5 3.4z" style="fill:var(--pg-accent)" />
+        </g>
+      </symbol>
+      <!-- 02 ウェブサイトから相談：パソコンと吹き出し -->
+      <symbol id="pg-web" viewBox="0 0 80 80">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="12" y="24" width="46" height="31" rx="3" style="fill:var(--pg-base)" />
+          <path d="M6 60h58l-4 6H10z" />
+          <path d="M20 32h18a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-12l-5 4v-4a3 3 0 0 1-1-2v-7a3 3 0 0 1 3-3z" style="fill:var(--pg-accent)" />
+          <path d="M50 8h20a4 4 0 0 1 4 4v9a4 4 0 0 1-4 4h-4l-5 5v-5h-11a4 4 0 0 1-4-4v-9a4 4 0 0 1 4-4z" style="fill:var(--pg-base)" />
+          <path d="M53.5 16.5h.01M60 16.5h.01M66.5 16.5h.01" stroke-width="3.2" />
+        </g>
+      </symbol>
+      <!-- 03 内見：お部屋と虫めがね -->
+      <symbol id="pg-visit" viewBox="0 0 80 80">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 36v28h34V36" style="fill:var(--pg-base)" />
+          <path d="M11 41l24-21 24 21" />
+          <rect x="29" y="47" width="12" height="17" rx="1" style="fill:var(--pg-accent)" />
+          <path d="M38 56h.01" stroke-width="3" />
+          <circle cx="58" cy="50" r="10" style="fill:var(--pg-base)" />
+          <path d="M65.5 57.5L73 65" stroke-width="3" />
+          <path d="M53.5 47.5a5 5 0 0 1 4-2.5" />
+        </g>
+      </symbol>
+      <!-- 04 お申込み：申込書とペン -->
+      <symbol id="pg-apply" viewBox="0 0 80 80">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="14" y="14" width="38" height="52" rx="4" style="fill:var(--pg-base)" />
+          <rect x="24" y="9" width="18" height="9" rx="2" style="fill:var(--pg-accent)" />
+          <path d="M22 30h22M22 38h22M22 46h12" />
+          <path d="M22 56l3 3 6-6" />
+          <path d="M63 26l6 6-21 21-8 2 2-8z" style="fill:var(--pg-base)" />
+          <path d="M59 30l6 6" />
+        </g>
+      </symbol>
+      <!-- 05 ご契約：契約書と印鑑 -->
+      <symbol id="pg-contract" viewBox="0 0 80 80">
+        <g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 10h28l10 10v46H14z" style="fill:var(--pg-base)" />
+          <path d="M42 10v10h10" />
+          <path d="M21 28h20M21 35h24M21 42h16" />
+          <path d="M21 56c3-5 5-5 6 0s3 5 6 0 4-4 6 0" />
+          <circle cx="60" cy="54" r="11" style="fill:var(--pg-accent)" />
+          <circle cx="60" cy="54" r="6.5" />
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <header class="sb-header">
+    <a class="wn-logo" href="./index.html" aria-label="WAYNEST トップへ">
+      <span class="lp-header__name-en"><span class="lp-header__thin">WAY</span>NEST</span>
+    </a>
+    <nav class="sb-header__nav" aria-label="メインナビゲーション">
+      <a href="./area.html">地域情報</a>
+      <a href="./sns.html">SNS</a>
+      <a href="./index.html#contact">LINE相談</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="sb-title">
+      <p class="sb-title__en">FLOW</p>
+      <h1 class="sb-title__jp">お部屋探しの流れ</h1>
+      <p class="sb-title__lead">SNS で気になるお部屋を見つけたら、<br />ご相談からご契約まで、スタッフがていねいにサポートします。</p>
+      <ol class="sb-crumbs" aria-label="現在地">
+        <li><a href="./index.html">トップ</a></li>
+        <li>お部屋探しの流れ</li>
+      </ol>
+    </div>
+
+    <!-- 全体の流れ（ひと目でわかる一覧）。押すと各ステップへ -->
+    <ol class="fl-overview" aria-label="流れの一覧">
+      <li><a href="#step1"><svg class="fl-overview__pict" aria-hidden="true"><use href="#pg-sns" /></svg><span>SNSで探す</span></a></li>
+      <li><a href="#step2"><svg class="fl-overview__pict" aria-hidden="true"><use href="#pg-web" /></svg><span>ご相談</span></a></li>
+      <li><a href="#step3"><svg class="fl-overview__pict" aria-hidden="true"><use href="#pg-visit" /></svg><span>内見</span></a></li>
+      <li><a href="#step4"><svg class="fl-overview__pict" aria-hidden="true"><use href="#pg-apply" /></svg><span>お申込み</span></a></li>
+      <li><a href="#step5"><svg class="fl-overview__pict" aria-hidden="true"><use href="#pg-contract" /></svg><span>ご契約</span></a></li>
+    </ol>
+
+    <ol class="fl-steps">
+      <li class="fl-step" id="step1">
+        <div class="fl-step__pict"><svg aria-hidden="true"><use href="#pg-sns" /></svg></div>
+        <div class="fl-step__body">
+          <p class="fl-step__num">STEP 01</p>
+          <h2 class="fl-step__title">SNSで気になるお部屋を探す</h2>
+          <p class="fl-step__text">Instagram や TikTok で、ルームツアーや新着のお部屋を発信しています。まずは写真や動画で、気になるお部屋を見つけてください。</p>
+          <a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp" href="./sns.html"><span class="wn-btn__label">公式SNSを見る</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </li>
+      <li class="fl-step" id="step2">
+        <div class="fl-step__pict"><svg aria-hidden="true"><use href="#pg-web" /></svg></div>
+        <div class="fl-step__body">
+          <p class="fl-step__num">STEP 02</p>
+          <h2 class="fl-step__title">ウェブサイトからご相談</h2>
+          <p class="fl-step__text">気になるお部屋が見つかったら、このサイトの LINE やお問い合わせフォームからご相談ください。ご希望の条件や、お引越しの時期をお聞きします。</p>
+          <a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp" href="./index.html#contact"><span class="wn-btn__label">相談する</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </li>
+      <li class="fl-step" id="step3">
+        <div class="fl-step__pict"><svg aria-hidden="true"><use href="#pg-visit" /></svg></div>
+        <div class="fl-step__body">
+          <p class="fl-step__num">STEP 03</p>
+          <h2 class="fl-step__title">内見</h2>
+          <p class="fl-step__text">スタッフが現地でお部屋をご案内します。日当たりや収納、まわりの環境も、実際に見て確かめられます。</p>
+          <p class="fl-step__note">※転勤などで来店が難しい方は、オンライン内見（ビデオ通話）もご相談ください。</p>
+          <a class="wn-btn wn-btn--light wn-btn--sm wn-btn--jp" href="./entry.html?type=visit"><span class="wn-btn__label">内見を予約する</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        </div>
+      </li>
+      <li class="fl-step" id="step4">
+        <div class="fl-step__pict"><svg aria-hidden="true"><use href="#pg-apply" /></svg></div>
+        <div class="fl-step__body">
+          <p class="fl-step__num">STEP 04</p>
+          <h2 class="fl-step__title">お申込み</h2>
+          <p class="fl-step__text">住みたいお部屋が決まったら、入居申込書をご記入いただきます。その後、管理会社・貸主による入居審査があります。</p>
+        </div>
+      </li>
+      <li class="fl-step" id="step5">
+        <div class="fl-step__pict"><svg aria-hidden="true"><use href="#pg-contract" /></svg></div>
+        <div class="fl-step__body">
+          <p class="fl-step__num">STEP 05</p>
+          <h2 class="fl-step__title">ご契約</h2>
+          <p class="fl-step__text">審査が通ったら、重要事項のご説明を受けてご契約です。初期費用のお支払いのあと、鍵をお渡しして新しい暮らしのスタートです。</p>
+        </div>
+      </li>
+    </ol>
+
+    <p class="sb-note fl-note">※流れや必要な書類は、お部屋によって異なる場合があります。くわしくはスタッフにお尋ねください。</p>
+
+    <a class="wn-btn wn-btn--center sb-back" href="./index.html"><span class="wn-btn__label">BACK TO TOP</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  </main>
+
+  <footer class="sb-footer">
+    <p class="sb-footer__mark">WAYNEST</p>
+    <p class="sb-footer__text">賃貸仲介 WAYNEST（運営：株式会社アクト）<br />北海道知事免許 石狩（2）第8974号</p>
+    <p class="sb-footer__copy">© 2026 WAYNEST ／ 株式会社アクト. ALL RIGHTS RESERVED.</p>
+  </footer>
+</body>
+</html>

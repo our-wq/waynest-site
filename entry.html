@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="./wn-gate.js"></script>
+  <meta name="robots" content="noindex" />
+  <title>WAYNEST｜お問い合わせ・内見予約</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@500&display=swap" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./entry.css" />
+  <script defer src="./wn-button.js"></script>
+  <script type="module" src="./entry.js"></script>
+</head>
+
+<body class="en-body">
+  <header class="en-header">
+    <a class="en-header__logo wn-logo" href="./index.html" aria-label="WAYNEST トップへ">
+      <span class="lp-header__name-en"><span class="lp-header__thin">WAY</span>NEST</span>
+    </a>
+    <a class="en-header__back" href="./index.html#pickup" data-back>物件一覧へ戻る</a>
+  </header>
+
+  <!-- firebase-config.js が未設定（擬似動作）のときだけ出る -->
+  <p class="en-proto" data-proto hidden>プロトタイプ：Google / LINE ログインと送信は擬似動作です</p>
+
+  <main class="en-main">
+    <!-- 進み具合 -->
+    <ol class="en-steps" aria-label="手続きの進み具合" data-steps>
+      <li class="is-current"><span>1</span>ログイン</li>
+      <li><span>2</span>入力</li>
+      <li><span>3</span>確認</li>
+      <li><span>4</span>完了</li>
+    </ol>
+
+    <h1 class="en-title" data-title>内見のご予約</h1>
+
+    <!-- 対象の物件（id が無いときは「物件はこれから相談」表示） -->
+    <section class="en-property" data-property aria-label="対象の物件">
+      <div class="en-property__image ph ph--plan" data-label="PHOTO"></div>
+      <div class="en-property__body">
+        <p class="en-property__area" data-p-area></p>
+        <p class="en-property__name" data-p-name></p>
+        <p class="en-property__spec" data-p-spec></p>
+        <p class="en-property__rent" data-p-rent></p>
+      </div>
+    </section>
+
+    <!-- ===== Step 1：ログイン ===== -->
+    <section class="en-panel" data-step="1">
+      <p class="en-lead">ログインすると、お名前などの入力がかんたんになります。<br />やりとりの履歴も、あとから確認できます。</p>
+
+      <div class="en-login">
+        <!-- LINE ログインボタン：LINE ログインボタン デザインガイドライン準拠（ベース #06C755／ホバー 黒10%／押下 黒30%／文字・ロゴ 白）
+             ロゴは LINE Developers の公式ボタン素材（利用ガイドラインに同意してダウンロード）の
+             アイコンを images/line-login-icon.png に置くと差し替わる -->
+        <button class="en-login__btn en-login__btn--line" type="button" data-login="line">
+          <span class="en-login__logo" aria-hidden="true">
+            <img src="./images/line-login-icon.png" alt="" width="32" height="32" onerror="this.remove()" />
+          </span>
+          <span class="en-login__label">LINEでログイン</span>
+        </button>
+        <!-- Google ログインボタン：Sign in with Google ブランドガイドライン準拠（ライト：白地／枠線 #747775／文字 #1F1F1F Roboto Medium／標準カラーの G ロゴ） -->
+        <button class="en-login__btn en-login__btn--google" type="button" data-login="google">
+          <span class="en-login__logo" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="20" height="20"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          </span>
+          <span class="en-login__label">Google でログイン</span>
+        </button>
+        <p class="en-login__error" data-login-error role="alert" hidden></p>
+        <p class="en-login__inapp" data-inapp hidden>
+          InstagramやLINEのアプリ内ブラウザでは、Googleでのログインができない場合があります。<br />
+          そのときは<span data-inapp-line>「LINEでログイン」か、</span>右上のメニューから「ブラウザで開く」をお試しください。
+        </p>
+      </div>
+
+      <p class="en-or"><span>または</span></p>
+      <button class="en-guest" type="button" data-guest>ログインせずに入力する</button>
+      <p class="en-note">ログイン情報は、お問い合わせ対応のためだけに使用します。<a href="#">個人情報の取り扱いについて</a></p>
+    </section>
+
+    <!-- ===== Step 2：入力 ===== -->
+    <section class="en-panel" data-step="2" hidden>
+      <div class="en-account" data-account hidden>
+        <span class="en-account__badge" data-account-provider></span>
+        <span class="en-account__name" data-account-label></span>
+        <button class="en-account__switch" type="button" data-logout>切り替える</button>
+      </div>
+
+      <form class="en-form" data-form novalidate>
+        <!-- 内見予約のときだけ -->
+        <fieldset class="en-field" data-only="visit">
+          <legend>内見の方法</legend>
+          <!-- 基本は現地。オンライン内見は転勤などで来られない方だけなので、小さなチェックで選ぶ -->
+          <p class="en-method">現地でスタッフがご案内します。</p>
+          <label class="en-check"><input type="checkbox" name="online" /><span>オンライン内見（ビデオ通話）を希望する ※遠方にお住まいでご来店が難しい方・転勤の方限定</span></label>
+        </fieldset>
+
+        <fieldset class="en-field" data-only="visit">
+          <legend>ご希望の日時<em>必須</em></legend>
+          <!-- 日付はカレンダー（datepick.js）、時間帯はプルダウンで選ぶ -->
+          <div class="en-datetime">
+            <span class="en-datetime__label">第1希望</span>
+            <input type="hidden" name="date1" />
+            <button class="en-datepick" type="button" aria-label="第1希望の日付" data-datepick="date1"><span data-datepick-text>日付を選ぶ</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>
+            <select name="time1" required aria-label="第1希望の時間帯">
+              <option value="">時間帯</option>
+              <option>10:00〜12:00</option>
+              <option>12:00〜14:00</option>
+              <option>14:00〜16:00</option>
+              <option>16:00〜18:00</option>
+            </select>
+          </div>
+          <div class="en-datetime">
+            <span class="en-datetime__label">第2希望</span>
+            <input type="hidden" name="date2" />
+            <button class="en-datepick" type="button" aria-label="第2希望の日付" data-datepick="date2"><span data-datepick-text>日付を選ぶ</span><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>
+            <select name="time2" aria-label="第2希望の時間帯">
+              <option value="">時間帯</option>
+              <option>10:00〜12:00</option>
+              <option>12:00〜14:00</option>
+              <option>14:00〜16:00</option>
+              <option>16:00〜18:00</option>
+            </select>
+          </div>
+          <p class="en-error" data-error="date1">第1希望の日付と時間帯を選んでください。</p>
+        </fieldset>
+
+        <!-- 物件が決まっていないとき（来店予約など）だけ -->
+        <fieldset class="en-field" data-only="noproperty">
+          <legend>ご希望の条件<em class="is-optional">任意</em></legend>
+          <div class="en-grid">
+            <label class="en-input" data-only="detail visit"><span>気になる物件</span><input type="text" name="propertyText" placeholder="物件名、または物件ページのURL" /></label>
+            <label class="en-input" data-only="consult"><span>お引越しの時期</span>
+              <select name="when"><option value="">未定</option><option>1か月以内</option><option>3か月以内</option><option>半年以内</option></select>
+            </label>
+            <label class="en-input"><span>エリア・駅</span><input type="text" name="area" placeholder="例：○○駅の周辺" /></label>
+            <label class="en-input"><span>家賃の上限</span>
+              <select name="budget"><option value="">指定なし</option><option>〜6万円</option><option>〜8万円</option><option>〜10万円</option><option>〜12万円</option><option>12万円以上</option></select>
+            </label>
+            <label class="en-input"><span>間取り</span>
+              <select name="layout"><option value="">指定なし</option><option>1R・1K</option><option>1LDK</option><option>2LDK</option><option>3LDK以上</option></select>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- お部屋探しの相談のときだけ -->
+        <fieldset class="en-field" data-only="consult">
+          <legend>こだわり<em class="is-optional">複数選べます</em></legend>
+          <div class="en-chips">
+            <label class="en-chip"><input type="checkbox" name="prefs" value="ペット可" /><span>ペット可</span></label>
+            <label class="en-chip"><input type="checkbox" name="prefs" value="駐車場あり" /><span>駐車場あり</span></label>
+            <label class="en-chip"><input type="checkbox" name="prefs" value="バス・トイレ別" /><span>バス・トイレ別</span></label>
+            <label class="en-chip"><input type="checkbox" name="prefs" value="オートロック" /><span>オートロック</span></label>
+            <label class="en-chip"><input type="checkbox" name="prefs" value="初期費用を抑えたい" /><span>初期費用を抑えたい</span></label>
+            <label class="en-chip"><input type="checkbox" name="prefs" value="遠方からの引越し" /><span>遠方からの引越し</span></label>
+          </div>
+        </fieldset>
+
+        <!-- 詳細のお問い合わせのときだけ -->
+        <fieldset class="en-field" data-only="detail">
+          <legend>知りたいこと<em class="is-optional">複数選べます</em></legend>
+          <div class="en-chips">
+            <label class="en-chip"><input type="checkbox" name="topics" value="空室状況・入居可能日" checked /><span>空室状況・入居可能日</span></label>
+            <label class="en-chip"><input type="checkbox" name="topics" value="初期費用の見積もり" /><span>初期費用の見積もり</span></label>
+            <label class="en-chip"><input type="checkbox" name="topics" value="室内の写真・動画" /><span>室内の写真・動画</span></label>
+            <label class="en-chip"><input type="checkbox" name="topics" value="周辺環境" /><span>周辺環境</span></label>
+            <label class="en-chip"><input type="checkbox" name="topics" value="ペット・楽器の可否" /><span>ペット・楽器の可否</span></label>
+            <label class="en-chip"><input type="checkbox" name="topics" value="似た条件のほかの物件" /><span>似た条件のほかの物件</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="en-field">
+          <legend>お客さま情報</legend>
+          <div class="en-grid">
+            <label class="en-input"><span>お名前<em>必須</em></span><input type="text" name="name" autocomplete="name" required /></label>
+            <label class="en-input" data-only="visit consult"><span>人数</span>
+              <select name="people"><option>1名</option><option>2名</option><option>3名以上</option></select>
+            </label>
+            <label class="en-input"><span>電話番号<em class="is-optional">任意</em></span><input type="tel" name="tel" autocomplete="tel" inputmode="tel" placeholder="090-0000-0000" /></label>
+            <label class="en-input"><span>メールアドレス<em class="is-optional" data-email-optional>任意</em></span><input type="email" name="email" autocomplete="email" /></label>
+          </div>
+          <p class="en-error" data-error="name">お名前を入力してください。</p>
+          <p class="en-error" data-error="email">メールでのご連絡にはメールアドレスが必要です。</p>
+          <p class="en-error" data-error="tel">お電話でのご連絡には電話番号が必要です。</p>
+        </fieldset>
+
+        <fieldset class="en-field">
+          <legend>ご連絡の方法<em>必須</em></legend>
+          <div class="en-choices en-choices--3">
+            <label class="en-choice"><input type="radio" name="contact" value="LINE" /><span>LINE</span></label>
+            <label class="en-choice"><input type="radio" name="contact" value="メール" /><span>メール</span></label>
+            <label class="en-choice"><input type="radio" name="contact" value="電話" /><span>電話</span></label>
+          </div>
+          <p class="en-error" data-error="contact">ご連絡の方法を選んでください。</p>
+        </fieldset>
+
+        <fieldset class="en-field">
+          <legend>ご要望・ご質問<em class="is-optional">任意</em></legend>
+          <textarea name="message" rows="4" placeholder="入居希望時期や、気になることがあればご記入ください。"></textarea>
+        </fieldset>
+
+        <button class="wn-btn wn-btn--jp wn-btn--block" type="submit"><span class="wn-btn__label">入力内容を確認する</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+      </form>
+    </section>
+
+    <!-- ===== Step 3：確認 ===== -->
+    <section class="en-panel" data-step="3" hidden>
+      <p class="en-lead">以下の内容で送信します。</p>
+      <dl class="en-confirm" data-confirm></dl>
+      <label class="en-agree">
+        <input type="checkbox" data-agree />
+        <span><a href="#">個人情報の取り扱い</a>に同意する</span>
+      </label>
+      <div class="en-actions">
+        <button class="wn-btn wn-btn--light wn-btn--jp wn-btn--block" type="button" data-edit><span class="wn-btn__label">修正する</span></button>
+        <button class="wn-btn wn-btn--jp wn-btn--block" type="button" data-send disabled><span class="wn-btn__label">この内容で送信する</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></button>
+      </div>
+      <p class="en-login__error" data-send-error role="alert" hidden>送信できませんでした。通信環境をご確認のうえ、もう一度お試しください。</p>
+    </section>
+
+    <!-- ===== Step 4：完了 ===== -->
+    <section class="en-panel en-done" data-step="4" hidden>
+      <span class="en-done__mark" aria-hidden="true"></span>
+      <p class="en-done__title" data-done-title>ご予約を受け付けました</p>
+      <p class="en-lead" data-done-lead></p>
+      <ol class="en-next">
+        <li><b>担当スタッフからご連絡</b><span>1営業日以内にご連絡します。</span></li>
+        <li data-only="visit"><b>日時の確定</b><span>ご希望をもとに、内見の日時を確定します。</span></li>
+        <li data-only="visit"><b>内見</b><span>当日はスタッフがご案内します。</span></li>
+        <li data-only="consult"><b>お部屋のご提案</b><span>ご希望に合うお部屋を探して、ご案内します。</span></li>
+        <li data-only="detail"><b>ご提案</b><span>ご質問への回答と、あわせて似た物件もご案内します。</span></li>
+      </ol>
+      <div class="en-actions en-actions--stack">
+        <a class="wn-btn wn-btn--jp wn-btn--block" href="./index.html#pickup"><span class="wn-btn__label">ほかの物件も見る</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+        <a class="wn-btn wn-btn--light wn-btn--jp wn-btn--block" href="./index.html"><span class="wn-btn__label">トップへ戻る</span></a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

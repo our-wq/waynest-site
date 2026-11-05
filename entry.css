@@ -1,0 +1,461 @@
+/* =========================================================
+   Entry — 物件の詳細お問い合わせ／内見予約（ログイン → 入力 → 確認 → 完了）
+   色・フォントは style.css の変数を使う
+   ========================================================= */
+.en-body { background: var(--c-base); min-height: 100vh; min-height: 100svh; }
+.en-body [hidden] { display: none !important; }
+
+/* ---------- Header ---------- */
+.en-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+  padding: 0 clamp(16px, 4vw, 48px);
+  background: var(--c-base);
+  border-bottom: 1px solid var(--c-sub);
+}
+.en-header .lp-header__name-en { font-size: 20px; }
+.en-header__back { position: relative; padding-left: 14px; font-size: 12px; }
+.en-header__back::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.en-proto {
+  padding: 6px 16px;
+  background: var(--c-sub);
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* ---------- Layout ---------- */
+.en-main { width: min(600px, 100%); margin: 0 auto; padding: 32px 16px 80px; }
+
+.en-steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 0 32px; padding: 0; counter-reset: none; }
+.en-steps li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--c-greige);
+}
+.en-steps li::before {
+  content: "";
+  position: absolute;
+  top: 13px;
+  left: -50%;
+  width: 100%;
+  height: 1px;
+  background: var(--c-sub);
+  z-index: -1;
+}
+.en-steps li:first-child::before { display: none; }
+.en-steps span {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  height: 27px;
+  border: 1px solid var(--c-sub);
+  border-radius: 50%;
+  background: var(--c-base);
+  font-family: var(--f-en);
+  font-size: 11px;
+}
+.en-steps li.is-done,
+.en-steps li.is-current { color: var(--c-main); }
+.en-steps li.is-done::before,
+.en-steps li.is-current::before { background: var(--c-main); }
+.en-steps li.is-done span { border-color: var(--c-main); background: var(--c-main); color: var(--c-white); }
+.en-steps li.is-current span { border-color: var(--c-main); background: var(--c-white); font-weight: 600; }
+
+.en-title { margin: 0 0 20px; text-align: center; font-size: 20px; font-weight: 500; letter-spacing: 0.08em; line-height: 1.5; }
+
+/* ---------- 対象物件 ---------- */
+.en-property {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 14px;
+  margin-bottom: 24px;
+  background: var(--c-paper);
+  border-radius: 8px;
+}
+.en-property__image { aspect-ratio: 1; border-radius: 6px; }
+.en-property__image.ph::after { font-size: 9px; }
+.en-property__area { font-size: 11px; line-height: 1.6; color: var(--c-greige); }
+.en-property__name { font-size: 16px; font-weight: 500; line-height: 1.5; }
+.en-property__spec { font-size: 12px; line-height: 1.6; }
+.en-property__rent { font-size: 13px; font-weight: 500; line-height: 1.6; }
+.en-property.is-empty { grid-template-columns: 1fr; text-align: center; }
+.en-property.is-empty .en-property__image { display: none; }
+
+/* ---------- Panel ---------- */
+.en-panel { padding: 28px 24px; background: var(--c-white); border-radius: 12px; }
+.en-panel[hidden] { display: none; }
+.en-lead { text-align: center; font-size: 13px; line-height: 1.9; }
+
+/* ---------- Step 1：ログイン ---------- */
+.en-login { display: grid; gap: 12px; margin-top: 24px; }
+/* ログインボタンだけはサイトの配色ではなく、各社のブランドガイドラインの色・形にそろえる */
+.en-login__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.en-login__label { flex: 1; text-align: center; }
+.en-login__btn.is-loading { pointer-events: none; }
+.en-login__btn.is-loading .en-login__label { visibility: hidden; }
+.en-login__btn.is-loading::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin: -9px 0 0 -9px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: en-spin .8s linear infinite;
+}
+@keyframes en-spin { to { transform: rotate(360deg); } }
+
+/* LINE：ベース #06C755 ／ ホバー 黒10%重ね ／ 押下 黒30%重ね ／ 文字・ロゴ 白 ／ ロゴと文字のあいだに区切り線 */
+.en-login__btn--line {
+  border-radius: 6px;
+  background: #06c755;
+  color: #fff;
+  font-family: var(--f-jp);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.en-login__btn--line::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #000; opacity: 0; }
+.en-login__btn--line:hover::before { opacity: .1; }
+.en-login__btn--line:active::before { opacity: .3; }
+.en-login__btn--line .en-login__logo {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 100%;
+  border-right: 1px solid rgba(0, 0, 0, .08);
+}
+.en-login__btn--line .en-login__logo img { width: 32px; height: 32px; }
+/* 公式アイコン画像を置くまではロゴ欄ごと隠す */
+.en-login__btn--line .en-login__logo:not(:has(img)) { display: none; }
+
+/* Google（ライト）：白地 ／ 1px 枠線 #747775 ／ 文字 #1F1F1F Roboto Medium 14/20 ／ 標準カラーの G を白地の上に */
+.en-login__btn--google {
+  gap: 10px;
+  padding: 0 12px;
+  border: 1px solid #747775;
+  border-radius: 6px;
+  background: #fff;
+  color: #1f1f1f;
+  font-family: "Roboto", "Noto Sans JP", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+.en-login__btn--google::before { content: ""; position: absolute; inset: 0; z-index: -1; background: #1f1f1f; opacity: 0; transition: opacity .2s; }
+.en-login__btn--google:hover::before { opacity: .08; }
+.en-login__btn--google:active::before { opacity: .12; }
+.en-login__btn--google .en-login__logo { display: grid; place-items: center; width: 20px; height: 20px; }
+.en-login__btn--google .en-login__label { margin-right: 30px; } /* ロゴの分だけ文字を中央に寄せる */
+
+.en-login__btn:focus-visible { outline: 2px solid var(--c-taupe); outline-offset: 2px; }
+.en-login__error { padding: 10px 12px; border-radius: 6px; background: #fbf3f0; color: #a1503c; font-size: 12px; line-height: 1.7; }
+.en-actions + .en-login__error { margin-top: 12px; }
+.en-login__inapp { padding: 10px 12px; border-radius: 6px; background: var(--c-paper); font-size: 11px; line-height: 1.7; }
+
+.en-or { display: flex; align-items: center; gap: 12px; margin: 24px 0 12px; font-size: 11px; color: var(--c-greige); }
+.en-or::before,
+.en-or::after { content: ""; flex: 1; height: 1px; background: var(--c-sub); }
+.en-guest { display: block; width: 100%; height: 48px; border: 1px solid var(--c-sub); border-radius: 999px; font-size: 13px; }
+.en-note { margin-top: 20px; text-align: center; font-size: 10px; line-height: 1.8; color: var(--c-greige); }
+.en-note a,
+.en-agree a { border-bottom: 1px solid currentColor; }
+
+/* ---------- Step 2：入力 ---------- */
+.en-account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: var(--c-paper);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.en-account[hidden] { display: none; }
+.en-account__badge { padding: 2px 8px; border-radius: 999px; background: var(--c-main); color: var(--c-white); font-size: 10px; white-space: nowrap; }
+.en-account__badge.is-line { background: #06c755; color: #fff; }
+.en-account__badge.is-google { background: #fff; color: #1f1f1f; box-shadow: inset 0 0 0 1px #747775; }
+.en-account__name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.en-account__switch { font-size: 11px; border-bottom: 1px solid currentColor; line-height: 1.4; }
+
+.en-form { display: grid; gap: 24px; }
+.en-field { margin: 0; padding: 0; border: 0; min-width: 0; }
+.en-field[hidden] { display: none; }
+.en-field legend { padding: 0; margin-bottom: 10px; font-size: 13px; font-weight: 500; }
+.en-field em,
+.en-input em {
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: var(--c-main);
+  color: var(--c-white);
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 400;
+  vertical-align: 1px;
+}
+.en-field em.is-optional,
+.en-input em.is-optional { background: var(--c-sub); color: var(--c-main); }
+
+.en-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.en-choices--3 { grid-template-columns: repeat(3, 1fr); }
+.en-choice input,
+.en-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.en-choice span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 6px;
+  border: 1px solid var(--c-sub);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: border-color .2s, background-color .2s;
+}
+.en-choice small { font-size: 10px; color: var(--c-greige); }
+.en-choice input:checked + span { border-color: var(--c-main); background: var(--c-paper); box-shadow: inset 0 0 0 1px var(--c-main); }
+.en-choice input:focus-visible + span,
+.en-chip input:focus-visible + span { outline: 2px solid var(--c-taupe); outline-offset: 2px; }
+
+/* 内見の方法：現地が基本。オンラインは小さなチェックだけ */
+.en-method { font-size: 13px; line-height: 1.7; }
+.en-check { display: flex; align-items: flex-start; gap: 8px; margin-top: 8px; font-size: 11px; line-height: 1.7; color: var(--c-greige); cursor: pointer; }
+.en-check input { flex: none; width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--c-main); }
+.en-check input:checked + span { color: var(--c-main); }
+
+.en-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.en-chip span {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid var(--c-sub);
+  border-radius: 999px;
+  font-size: 12px;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: background-color .2s, color .2s, border-color .2s;
+}
+.en-chip input:checked + span { border-color: var(--c-main); background: var(--c-main); color: var(--c-white); }
+
+.en-datetime { position: relative; display: grid; grid-template-columns: 56px 1fr 1fr; gap: 8px; align-items: center; }
+
+/* 日付ボタン（押すとカレンダーが開く）：見た目は他の入力欄とそろえる */
+.en-datepick {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  padding: 0 12px;
+  border: 1px solid var(--c-sub);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--c-greige);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+}
+.en-datepick.is-filled { color: var(--c-main); }
+.en-datepick span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.en-datepick svg { flex: none; width: 18px; height: 18px; fill: none; stroke: var(--c-main); stroke-width: 1.5; stroke-linecap: round; }
+.en-datepick:focus-visible,
+.en-datepick[aria-expanded="true"] { outline: 2px solid var(--c-taupe); outline-offset: 1px; border-color: transparent; }
+
+/* カレンダー */
+.en-cal {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 64px;
+  z-index: 5;
+  width: min(320px, 100%);
+  padding: 16px 16px 12px;
+  border-radius: 16px;
+  background: var(--c-white);
+  box-shadow: 0 18px 40px -12px rgba(var(--rgb-ink), .35), 0 0 0 1px rgba(var(--rgb-ink), .06);
+}
+.en-cal__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.en-cal__title { margin: 0; font-size: 14px; font-weight: 500; letter-spacing: 0.06em; }
+.en-cal__nav { width: 34px; height: 34px; border: 0; border-radius: 50%; background: var(--c-paper); color: var(--c-main); font-size: 20px; line-height: 1; cursor: pointer; }
+.en-cal__nav:hover { background: var(--c-sub); }
+.en-cal__nav:disabled { opacity: .3; cursor: default; background: var(--c-paper); }
+.en-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center; }
+.en-cal__week { padding: 4px 0 6px; font-size: 11px; color: var(--c-greige); }
+.en-cal__day {
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--c-main);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color .15s, color .15s;
+}
+.en-cal .is-sun { color: #9a4f3a; }
+.en-cal .is-sat { color: #4f6178; }
+.en-cal__day:hover { background: var(--c-paper); }
+.en-cal__day:focus-visible { outline: 2px solid var(--c-taupe); outline-offset: -2px; }
+.en-cal__day:disabled { color: rgba(var(--rgb-ink), .22); background: none; cursor: default; }
+.en-cal__day.is-closed:disabled { text-decoration: line-through; }
+.en-cal__day.is-selected { background: var(--c-main); color: var(--c-white); }
+.en-cal__note { margin: 8px 0 0; font-size: 10px; color: var(--c-greige); line-height: 1.6; }
+.en-datetime + .en-datetime { margin-top: 8px; }
+.en-datetime__label { font-size: 11px; color: var(--c-greige); }
+
+.en-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.en-grid .en-input:first-child { grid-column: 1 / -1; }
+.en-input { display: grid; gap: 4px; }
+.en-input > span { font-size: 11px; color: var(--c-greige); line-height: 1.6; }
+
+.en-form input[type="text"],
+.en-form input[type="tel"],
+.en-form input[type="email"],
+.en-form input[type="date"],
+.en-form select,
+.en-form textarea {
+  width: 100%;
+  min-width: 0;
+  height: 46px;
+  padding: 0 12px;
+  border: 1px solid var(--c-sub);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--c-main);
+  font: inherit;
+  font-size: 16px; /* iOS のズーム防止 */
+  line-height: 1.4;
+}
+.en-form textarea { height: auto; padding: 10px 12px; resize: vertical; }
+.en-form input:focus,
+.en-form select:focus,
+.en-form textarea:focus { outline: 2px solid var(--c-taupe); outline-offset: 1px; border-color: transparent; }
+.en-form .is-invalid { border-color: #a1503c; background: #fbf3f0; }
+
+.en-error { display: none; margin-top: 6px; font-size: 11px; color: #a1503c; }
+.en-error.is-shown { display: block; }
+
+/* ボタンは style.css の wn-btn。フォームの最後は少し間をあける */
+.en-form > .wn-btn { margin-top: 8px; }
+
+/* ---------- Step 3：確認 ---------- */
+.en-confirm { margin: 20px 0 0; border-top: 1px solid var(--c-sub); }
+.en-confirm > div { display: grid; grid-template-columns: 110px 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--c-sub); font-size: 13px; line-height: 1.7; }
+.en-confirm dt { color: var(--c-greige); font-size: 12px; }
+.en-confirm dd { margin: 0; white-space: pre-wrap; word-break: break-word; }
+.en-agree { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 20px 0; font-size: 12px; cursor: pointer; }
+.en-agree input { width: 18px; height: 18px; accent-color: var(--c-main); }
+.en-actions { display: grid; grid-template-columns: 1fr 2fr; gap: 14px; }
+.en-actions--stack { grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
+
+/* ---------- Step 4：完了 ---------- */
+.en-done { text-align: center; }
+.en-done__mark {
+  position: relative;
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: var(--c-line);
+  animation: en-pop .5s cubic-bezier(.2, .7, .2, 1.3) both;
+}
+.en-done__mark::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  top: 18px;
+  width: 18px;
+  height: 26px;
+  border-right: 3px solid var(--c-white);
+  border-bottom: 3px solid var(--c-white);
+  transform: rotate(45deg);
+}
+@keyframes en-pop { from { transform: scale(.4); opacity: 0; } }
+.en-done__title { font-size: 18px; font-weight: 700; letter-spacing: 0.06em; }
+.en-done .en-lead { margin-top: 8px; }
+.en-next { list-style: none; margin: 24px 0 0; padding: 0; text-align: left; counter-reset: step; }
+.en-next li {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 0 0 18px 40px;
+  font-size: 12px;
+  line-height: 1.6;
+  counter-increment: step;
+}
+.en-next li[hidden] { display: none; }
+.en-next li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--c-paper);
+  font-family: var(--f-en);
+  font-size: 11px;
+}
+.en-next li:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 30px; bottom: 4px; width: 1px; background: var(--c-sub); }
+.en-next b { font-size: 13px; font-weight: 500; }
+.en-next span { color: var(--c-greige); }
+
+@media (max-width: 480px) {
+  .en-panel { padding: 24px 16px; }
+  .en-property { grid-template-columns: 72px 1fr; gap: 12px; padding: 12px; }
+  .en-datetime { grid-template-columns: 1fr 1fr; }
+  .en-datetime__label { grid-column: 1 / -1; }
+  .en-cal { left: 0; width: 100%; }
+  .en-confirm > div { grid-template-columns: 1fr; gap: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .en-done__mark { animation: none; }
+}

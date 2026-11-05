@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <script src="./wn-gate.js"></script>
+  <meta name="description" content="札幌市10区の病院・スーパー・飲食店・公園などの施設情報を、WAYNEST が区ごとにご紹介します。" />
+  <title>WAYNEST｜札幌の地域情報</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./sub.css" />
+  <script defer src="./wn-edit.js" data-page="area"></script>
+  <script defer src="./wn-button.js"></script>
+</head>
+
+<body class="sb-body">
+  <header class="sb-header">
+    <a class="wn-logo" href="./index.html" aria-label="WAYNEST トップへ">
+      <span class="lp-header__name-en"><span class="lp-header__thin">WAY</span>NEST</span>
+    </a>
+    <nav class="sb-header__nav" aria-label="メインナビゲーション">
+      <a href="./area.html" aria-current="page">地域情報</a>
+      <a href="./sns.html">SNS</a>
+      <a href="./index.html#contact">LINE相談</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="sb-title">
+      <p class="sb-title__en">AREA</p>
+      <h1 class="sb-title__jp">札幌の地域情報</h1>
+      <p class="sb-title__lead">新居のまわりの病院やお店、公園などを、<br />WAYNEST が独自に取材して区ごとにご紹介します。</p>
+      <ol class="sb-crumbs" aria-label="現在地">
+        <li><a href="./index.html">トップ</a></li>
+        <li>札幌の地域情報</li>
+      </ol>
+    </div>
+
+    <!-- 区のタブと中身は areas.js から作る。施設（投稿）を足すときは areas.js だけ直せばよい -->
+    <ul class="sb-jump sb-jump--sticky" aria-label="区の一覧" data-area-jump></ul>
+    <section class="sb-feed" aria-live="polite" data-area-view></section>
+
+    <p class="sb-note sb-area-note">※掲載の施設情報は取材時点のものです。営業時間・診療科目などは各施設にご確認ください。</p>
+
+    <a class="wn-btn wn-btn--center sb-back" href="./index.html"><span class="wn-btn__label">BACK TO TOP</span><span class="wn-btn__icon wn-btn__icon--arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+  </main>
+
+  <footer class="sb-footer">
+    <p class="sb-footer__mark">WAYNEST</p>
+    <p class="sb-footer__text">賃貸仲介 WAYNEST（運営：株式会社アクト）<br />北海道知事免許 石狩（2）第8974号</p>
+    <p class="sb-footer__copy">© 2026 WAYNEST ／ 株式会社アクト. ALL RIGHTS RESERVED.</p>
+  </footer>
+
+  <script type="module">
+    import { AREAS, CATEGORIES } from "./areas.js";
+
+    const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+    const icon = (d) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+    const catOf = (id) => CATEGORIES.find((c) => c.id === id) ?? CATEGORIES[0];
+    const TONES = ["warm", "stone", "city", "forest", "sky"];
+    const ALL = { id: "all", short: "すべて", icon: "M5 5h5v5H5zM14 5h5v5h-5zM5 14h5v5H5zM14 14h5v5h-5z" };
+
+    const jump = document.querySelector("[data-area-jump]");
+    const view = document.querySelector("[data-area-view]");
+    let area = AREAS[0];
+    let filter = "all";
+
+    jump.innerHTML = AREAS.map((a) => `<li><a href="#${a.id}">${a.jp}</a></li>`).join("");
+
+    // 投稿1件（写真＋説明）。写真がなければ仮の画像
+    const post = (p, i) => {
+      const cat = catOf(p.cat);
+      const image = p.image
+        ? `<img class="sb-post__image" src="${esc(p.image)}" alt="" loading="lazy" />`
+        : `<span class="sb-post__image ph ph--${TONES[i % TONES.length]}" data-label="${p.placeholder ? "COMING SOON" : "PHOTO"}"></span>`;
+      const body = `
+        ${image}
+        <span class="sb-post__body">
+          <span class="sb-post__cat">${icon(cat.icon)}${cat.jp}</span>
+          <span class="sb-post__name">${esc(p.name)}</span>
+          ${p.text ? `<span class="sb-post__text">${esc(p.text)}</span>` : ""}
+          ${p.address ? `<span class="sb-post__address">${esc(p.address)}</span>` : ""}
+        </span>`;
+      const inner = p.url
+        ? `<a class="sb-post__inner" href="${esc(p.url)}" target="_blank" rel="noopener noreferrer">${body}</a>`
+        : `<div class="sb-post__inner">${body}</div>`;
+      return `<li class="sb-post${p.placeholder ? " is-placeholder" : ""}" style="--i:${i}">${inner}</li>`;
+    };
+
+    // まだ投稿がないときの仮の投稿（すべて：カテゴリーを順に6件／カテゴリー指定：3件）
+    const placeholders = () => {
+      const cats = filter === "all" ? [...CATEGORIES, CATEGORIES[2]].map((c) => c.id) : [filter, filter, filter];
+      return cats.map((cat) => ({ cat, name: "取材準備中", text: "WAYNEST が取材した施設を、順次掲載していきます。", placeholder: true }));
+    };
+
+    const renderGrid = () => {
+      const posts = area.posts.filter((p) => filter === "all" || p.cat === filter);
+      view.querySelector("[data-area-grid]").innerHTML = (posts.length ? posts : placeholders()).map(post).join("");
+      view.querySelectorAll("[data-filter]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.filter === filter)));
+    };
+
+    const render = () => {
+      const count = (id) => area.posts.filter((p) => id === "all" || p.cat === id).length;
+      view.innerHTML = `
+        <div class="sb-profile">
+          <span class="sb-profile__avatar" aria-hidden="true">${area.jp.replace(/区$/, "")}</span>
+          <div class="sb-profile__body">
+            <p class="sb-profile__en">${area.en}</p>
+            <h2 class="sb-profile__name">${area.jp}${area.shop ? `<span class="sb-profile__shop">店舗あり</span>` : ""}</h2>
+            <p class="sb-profile__text">${esc(area.text)}</p>
+          </div>
+        </div>
+        <ul class="sb-highlights" aria-label="カテゴリーで絞り込む">
+          ${[ALL, ...CATEGORIES].map((c) => `
+            <li><button class="sb-highlights__item" type="button" data-filter="${c.id}" aria-pressed="false">
+              <span class="sb-highlights__ring">${icon(c.icon)}</span>
+              <span class="sb-highlights__label">${c.short}${count(c.id) ? `<small>${count(c.id)}</small>` : ""}</span>
+            </button></li>`).join("")}
+        </ul>
+        <ul class="sb-feed__grid" data-area-grid></ul>`;
+      view.querySelectorAll("[data-filter]").forEach((b) => b.addEventListener("click", () => { filter = b.dataset.filter; renderGrid(); }));
+      renderGrid();
+
+      jump.querySelectorAll("a").forEach((a) => {
+        const on = a.hash === `#${area.id}`;
+        a.toggleAttribute("aria-current", on);
+        // スマホで横にスクロールする一覧は、選んだ区が見える位置まで送る
+        if (on) jump.scrollTo({ left: a.offsetLeft - (jump.clientWidth - a.offsetWidth) / 2, behavior: "smooth" });
+      });
+    };
+
+    // #minami などで区を切り替える（トップの区のタイルからもこの形で来る）
+    const fromHash = () => {
+      area = AREAS.find((a) => `#${a.id}` === location.hash) ?? AREAS[0];
+      filter = "all";
+      render();
+    };
+    window.addEventListener("hashchange", () => {
+      fromHash();
+      // 下の方を見ていたときは、区の見出しが見える位置まで戻す
+      const top = view.getBoundingClientRect().top + window.scrollY - jump.getBoundingClientRect().bottom - 8;
+      if (window.scrollY > top) window.scrollTo({ top, behavior: "smooth" });
+    });
+    fromHash();
+  </script>
+</body>
+</html>
