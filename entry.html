@@ -90,6 +90,13 @@
       </div>
 
       <form class="en-form" data-form novalidate>
+        <!-- 合言葉：TikTok・Instagram で紹介した物件ごとに決めた言葉（どの紹介を見て来たかを知るため）。URL の ?code= で最初から入れておける -->
+        <fieldset class="en-field">
+          <legend>合言葉<em class="is-optional">任意</em></legend>
+          <p class="en-method">TikTok・Instagramの紹介で合言葉をご覧になった方は、ご入力ください。</p>
+          <label class="en-input"><input type="text" name="passcode" maxlength="50" autocomplete="off" placeholder="例：〇〇〇〇" aria-label="合言葉" /></label>
+        </fieldset>
+
         <!-- 内見予約のときだけ -->
         <fieldset class="en-field" data-only="visit">
           <legend>内見の方法</legend>

@@ -180,6 +180,7 @@ const topicValues = () => $$('input[name="topics"]:checked').filter((c) => !c.di
 
 const buildConfirm = () => {
   const rows = [];
+  if (val("passcode")) rows.push(["合言葉", val("passcode")]);
   if (property) rows.push(["物件", `${property.name}\n${property.spec}`]);
   else if (val("propertyText")) rows.push(["気になる物件", val("propertyText")]);
   if (type === "consult" && val("when")) rows.push(["お引越しの時期", val("when")]);
@@ -222,6 +223,7 @@ const buildPayload = () => {
     tel: val("tel"),
     email: val("email"),
     message: val("message"),
+    passcode: val("passcode"),
   };
   if (property) Object.assign(data, { propertyId, propertyName: property.name });
   else if (val("propertyText")) data.propertyName = val("propertyText");
@@ -285,6 +287,9 @@ send.addEventListener("click", async () => {
 // ===== 初期表示：ログイン済みなら入力から =====
 // LINE のボタンから来たときの初期値
 if (params.get("method") === "video" && form.elements.online) form.elements.online.checked = true;
+// SNS のリンクに ?code=合言葉 を付けておくと、最初から入った状態で開く
+const presetCode = params.get("code") || params.get("aikotoba");
+if (presetCode) form.elements.passcode.value = presetCode.slice(0, 50);
 if (rawType === "vacancy" || rawType === "estimate") {
   const want = rawType === "vacancy" ? "空室状況・入居可能日" : "初期費用の見積もり";
   $$('input[name="topics"]').forEach((c) => { c.checked = c.value === want; });
